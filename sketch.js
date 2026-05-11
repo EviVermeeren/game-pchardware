@@ -7,7 +7,7 @@ let player,
   inputField;
 let currentQuestion = null,
   activeGoal = null,
-  gameState = "START",
+  gameState = "LOADING",
   score = 0;
 let levelWidth = 8000,
   camX = 0;
@@ -35,18 +35,14 @@ function preload() {
 // -----------------------------------------------------------------
 function setup() {
   canvas = createCanvas(800, 500);
-
   canvas.parent("game-wrapper");
 
   nameInput = createInput("");
-
   nameInput.parent("game-wrapper");
-
   nameInput.position(width / 2 - 100, height / 2 + 20);
-
   nameInput.size(200, 30);
-
   nameInput.attribute("placeholder", "Typ je naam");
+  nameInput.hide();
 
   nameInput.style("font-size", "18px");
   // We geven de player een object mee met de drie geladen afbeeldingen
@@ -71,6 +67,12 @@ function setup() {
     platforms.push(new Platform(xPos, 350, 200, platformImg));
     goals.push(new Goal(xPos + 80, 270, questions[i], goalImg));
   }
+
+  setTimeout(() => {
+    gameState = "START";
+    nameInput.show();
+    nameInput.elt.focus();
+  }, 3000);
 }
 
 function draw() {
@@ -92,7 +94,9 @@ function draw() {
     return;
   }
 
-  if (gameState === "START") {
+  if (gameState === "LOADING") {
+    displayLoadingScreen();
+  } else if (gameState === "START") {
     displayStartScreen();
   } else if (gameState === "PLAY") {
     playLoop();
@@ -265,19 +269,19 @@ function displayQuiz() {
     }
   } else {
     fill(0, 255, 255);
-    text("Antwoord:", width / 2, 345);
+    text("Antwoord:", width / 2, height / 2 + 50);
     if (currentQuestion.type === "MATCH") {
       fill(255, 200, 0);
       textSize(15);
       text(
-        "TIP: Combineer de letters. Bijvoorbeeld: als woord 1 bij antwoord a hoort, woord 2 bij antwoord b hoort, en woord 3 bij antwoord c hoort, dan typ je abc in het veldje",
+        "Combineer de letters. Als 1 bij antwoord a hoort, 2 bij b hoort, en 3 bij c hoort, dan typ je abc.",
         width / 2,
         280,
       );
     }
     fill(150);
     textSize(14);
-    text("(Druk op ENTER)", width / 2, 420);
+    text("(Druk op ENTER)", width / 2, height / 2 + 100);
   }
 }
 
@@ -330,8 +334,6 @@ function keyPressed() {
       checkAnswer(inputField.value().toLowerCase().trim());
     }
   }
-
-  return false;
 }
 
 class Platform {
@@ -388,4 +390,14 @@ function saveScore() {
     .catch((error) => {
       console.error("Fout bij opslaan score:", error);
     });
+}
+
+function displayLoadingScreen() {
+  background(0);
+
+  fill(0, 255, 255);
+  textAlign(CENTER);
+  textSize(30);
+
+  text("GAME WORDT GELADEN...", width / 2, height / 2);
 }
