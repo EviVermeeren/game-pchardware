@@ -9,7 +9,7 @@ let currentQuestion = null,
   activeGoal = null,
   gameState = "LOADING",
   score = 0;
-let levelWidth = 8000,
+let levelWidth = 6800,
   camX = 0;
 let nameInput;
 let playerName = "";
