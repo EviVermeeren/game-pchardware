@@ -1,0 +1,69 @@
+[
+  {
+    "type": "MC",
+    "q": "Wat is de kern van stop-motion animatie?",
+    "options": {
+      "a": "Video vertragen",
+      "b": "Foto per foto een scène opbouwen",
+      "c": "Tekenen"
+    },
+    "correct": "Yg==",
+    "part": "Definitie"
+  },
+  {
+    "type": "MC",
+    "q": "Hoe noem je de techniek waarbij je klei gebruikt?",
+    "options": { "a": "Claymation", "b": "Pixilation", "c": "Objectanimatie" },
+    "correct": "YQ==",
+    "part": "Technieken"
+  },
+  {
+    "type": "MATCH",
+    "q": "Match techniek aan materiaal:\n1. Cut-out | 2. Pixilation | 3. Poppets\nA. Mensen | B. Papier | C. Figuren met skelet",
+    "correct": "YmFj",
+    "part": "Technieken"
+  },
+  {
+    "type": "OPEN",
+    "q": "Hoe lang moet je stop-motion video minstens duren? (aantal seconden)",
+    "correct": "MzA=",
+    "part": "Opdracht"
+  },
+  {
+    "type": "MC",
+    "q": "Wat moet je doen met je objecten tussen elke foto door?",
+    "options": {
+      "a": "Helemaal verplaatsen",
+      "b": "Een klein beetje bewegen",
+      "c": "Laten staan"
+    },
+    "correct": "Yg==",
+    "part": "Productie"
+  },
+  {
+    "type": "OPEN",
+    "q": "Hoe noem je de afbeelding als voorbeeld van je video?",
+    "correct": "dGh1bWJuYWls",
+    "part": "YouTube"
+  },
+  {
+    "type": "MC",
+    "q": "In welk programma maak je de thumbnail voor je video?",
+    "options": { "a": "PowerPoint", "b": "Canva", "c": "Word" },
+    "correct": "Yg==",
+    "part": "Tools"
+  },
+  {
+    "type": "MC",
+    "q": "Welke zichtbaarheid kies je op YouTube?",
+    "options": { "a": "Openbaar", "b": "Privé", "c": "Verborgen" },
+    "correct": "Yw==",
+    "part": "Publiceren"
+  },
+  {
+    "type": "OPEN",
+    "q": "Welke extra optie vink je aan? 'Ja, deze video is gemaakt voor ...'",
+    "correct": "a2luZGVyZW4=",
+    "part": "YouTube"
+  }
+]

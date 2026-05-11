@@ -15,3 +15,10 @@ h1 {
   margin-top: 20px;
   color: black;
 }
+
+#game-wrapper {
+  width: 800px;
+  height: 500px;
+  margin: 40px auto;
+  position: relative;
+}
