@@ -8,25 +8,47 @@
       "c": "Tekenen"
     },
     "correct": "Yg==",
+    "correctFeedback": "Juist! Bij stop-motion maak je heel veel foto's die achter elkaar worden afgespeeld zodat het lijkt alsof alles beweegt.",
+    "wrongFeedback": "Niet helemaal. Bij stop-motion bouw je beweging op door foto per foto kleine veranderingen aan te brengen.",
     "part": "Definitie"
   },
   {
     "type": "MC",
     "q": "Hoe noem je de techniek waarbij je klei gebruikt?",
-    "options": { "a": "Claymation", "b": "Pixilation", "c": "Objectanimatie" },
+    "options": {
+      "a": "Claymation",
+      "b": "Pixilation",
+      "c": "Objectanimatie"
+    },
     "correct": "YQ==",
+    "correctFeedback": "Goed gedaan! Claymation is stop-motion met kleifiguren die telkens een beetje worden verplaatst.",
+    "wrongFeedback": "Dat klopt niet. Claymation is de techniek waarbij je stop-motion maakt met klei.",
     "part": "Technieken"
   },
   {
-    "type": "MATCH",
-    "q": "Match techniek aan materiaal:\n1. Cut-out | 2. Pixilation | 3. Poppets\nA. Mensen | B. Papier | C. Figuren met skelet",
-    "correct": "YmFj",
+    "type": "MC",
+    "q": "Welke combinatie klopt?",
+    "options": {
+      "a": "Cut-out = mensen, Pixilation = papier, Poppets = klei",
+      "b": "Cut-out = papier, Pixilation = mensen, Poppets = figuren met skelet",
+      "c": "Cut-out = figuren met skelet, Pixilation = papier, Poppets = mensen"
+    },
+    "correct": "Yg==",
+    "correctFeedback": "Perfect! Cut-out gebruik je met papier, pixilation met echte mensen en poppets zijn beweegbare figuren met een skelet.",
+    "wrongFeedback": "Niet helemaal juist. Cut-out hoort bij papier, pixilation bij echte mensen en poppets bij figuren met een skelet.",
     "part": "Technieken"
   },
   {
-    "type": "OPEN",
-    "q": "Hoe lang moet je stop-motion video minstens duren? (aantal seconden)",
-    "correct": "MzA=",
+    "type": "MC",
+    "q": "Hoe lang moet je stop-motionvideo minstens duren?",
+    "options": {
+      "a": "10 seconden",
+      "b": "20 seconden",
+      "c": "30 seconden"
+    },
+    "correct": "Yw==",
+    "correctFeedback": "Juist! De video moet minstens 30 seconden duren.",
+    "wrongFeedback": "Dat klopt niet helemaal. De opdracht vraagt een stop-motionvideo van minstens 30 seconden.",
     "part": "Opdracht"
   },
   {
@@ -38,32 +60,34 @@
       "c": "Laten staan"
     },
     "correct": "Yg==",
+    "correctFeedback": "Goed zo! Je beweegt objecten telkens maar een klein beetje zodat de beweging later vloeiend lijkt.",
+    "wrongFeedback": "Niet juist. Bij stop-motion beweeg je objecten telkens maar een klein beetje tussen de foto's.",
     "part": "Productie"
   },
   {
-    "type": "OPEN",
+    "type": "MC",
     "q": "Hoe noem je de afbeelding als voorbeeld van je video?",
-    "correct": "dGh1bWJuYWls",
+    "options": {
+      "a": "Thumbnail",
+      "b": "Titelbeeld",
+      "c": "Coverfoto"
+    },
+    "correct": "YQ==",
+    "correctFeedback": "Juist! Zo'n voorbeeldafbeelding noem je een thumbnail.",
+    "wrongFeedback": "Dat klopt niet. De afbeelding die je ziet vóór je een video opent, noem je een thumbnail.",
     "part": "YouTube"
   },
   {
     "type": "MC",
     "q": "In welk programma maak je de thumbnail voor je video?",
-    "options": { "a": "PowerPoint", "b": "Canva", "c": "Word" },
+    "options": {
+      "a": "PowerPoint",
+      "b": "Canva",
+      "c": "Word"
+    },
     "correct": "Yg==",
+    "correctFeedback": "Correct! Canva is een handig programma om snel thumbnails en ontwerpen te maken.",
+    "wrongFeedback": "Niet helemaal. Voor deze opdracht gebruik je Canva om je thumbnail te ontwerpen.",
     "part": "Tools"
-  },
-  {
-    "type": "MC",
-    "q": "Welke zichtbaarheid kies je op YouTube?",
-    "options": { "a": "Openbaar", "b": "Privé", "c": "Verborgen" },
-    "correct": "Yw==",
-    "part": "Publiceren"
-  },
-  {
-    "type": "OPEN",
-    "q": "Welke extra optie vink je aan? 'Ja, deze video is gemaakt voor ...'",
-    "correct": "a2luZGVyZW4=",
-    "part": "YouTube"
   }
 ]

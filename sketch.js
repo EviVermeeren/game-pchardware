@@ -15,6 +15,8 @@ let nameInput;
 let playerName = "";
 let scoreSaved = false;
 let canvas;
+let feedbackText = "";
+let answerButton;
 
 // -----------------------------------------------------------------
 // PRELOAD: Laad alle assets in
@@ -53,11 +55,30 @@ function setup() {
   });
 
   inputField = createInput("");
-  inputField.position(width / 2 + 75, 380);
+  inputField.parent("game-wrapper");
+  inputField.position(width / 2 - 100, height / 2 + 130);
   inputField.size(200, 30);
   inputField.style("font-size", "18px");
   inputField.style("font-family", "monospace");
   inputField.hide();
+
+  answerButton = createButton("Controleer");
+  answerButton.parent("game-wrapper");
+  answerButton.position(width / 2 - 50, height / 2 + 170);
+  answerButton.size(100, 30);
+  answerButton.hide();
+
+  answerButton.mousePressed(() => {
+    submitOpenAnswer();
+  });
+
+  // Zoek deze blokken in setup() en vervang ze door dit ene blok:
+  inputField.elt.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && gameState === "QUIZ") {
+      event.preventDefault();
+      submitOpenAnswer(); // Gebruik deze centrale functie
+    }
+  });
 
   let questions = Object.values(questionsData);
   platforms.push(new Platform(0, 470, levelWidth, platformImg));
@@ -102,6 +123,8 @@ function draw() {
     playLoop();
   } else if (gameState === "QUIZ") {
     displayQuiz();
+  } else if (gameState === "FEEDBACK") {
+    displayFeedback();
   } else if (gameState === "WIN") {
     displayWin();
   }
@@ -228,27 +251,65 @@ function startQuiz(goal) {
   currentQuestion = goal.question;
   activeGoal = goal;
   gameState = "QUIZ";
+
   inputField.value("");
+
   if (currentQuestion.type === "OPEN" || currentQuestion.type === "MATCH") {
     inputField.show();
-    setTimeout(() => inputField.elt.focus(), 10);
+    answerButton.show();
+
+    setTimeout(() => {
+      inputField.elt.focus();
+    }, 50);
   } else {
     inputField.hide();
+    answerButton.hide();
   }
 }
 
 function checkAnswer(guess) {
-  if (btoa(guess) === currentQuestion.correct) {
+  // Verberg de input elementen direct
+  inputField.hide();
+  answerButton.hide();
+
+  let answer = guess.toLowerCase().trim();
+
+  // Controleer of het antwoord (geëncodeerd in Base64) klopt
+  if (btoa(answer) === currentQuestion.correct) {
     activeGoal.completed = true;
     score += 10;
-    gameState = "PLAY";
-    inputField.hide();
+    // Gebruik de feedback uit de JSON of een standaardtekst
+    feedbackText =
+      currentQuestion.correctFeedback || "Goed gedaan! Dit antwoord was juist.";
   } else {
-    score = max(0, score - 5);
-    player.x -= 400;
-    gameState = "PLAY";
-    inputField.hide();
+    // Bij een fout antwoord markeren we de goal ook als voltooid (zodat je verder kunt)
+    activeGoal.completed = true;
+    feedbackText =
+      currentQuestion.wrongFeedback ||
+      "Dit antwoord was fout. Lees de uitleg goed na.";
   }
+
+  gameState = "FEEDBACK";
+}
+
+function displayFeedback() {
+  background(10, 10, 25);
+
+  fill(0, 255, 255);
+  textAlign(CENTER);
+  textSize(30);
+
+  text("Feedback", width / 2, 80);
+
+  fill(255);
+  textSize(18);
+  textLeading(30);
+
+  text(feedbackText, width / 2 - 300, 120, 600, 250);
+  fill(150);
+  textSize(16);
+
+  text("Druk op ENTER om verder te gaan.", width / 2, 420);
 }
 
 function displayQuiz() {
@@ -269,7 +330,7 @@ function displayQuiz() {
     }
   } else {
     fill(0, 255, 255);
-    text("Antwoord:", width / 2, height / 2 + 50);
+    text("Antwoord:", width / 2, height / 2 + 75);
     if (currentQuestion.type === "MATCH") {
       fill(255, 200, 0);
       textSize(15);
@@ -281,17 +342,36 @@ function displayQuiz() {
     }
     fill(150);
     textSize(14);
-    text("(Druk op ENTER)", width / 2, height / 2 + 100);
+    text("(Druk na het typen op ENTER)", width / 2, height / 2 + 100);
   }
 }
 
 function drawButton(l, t, y) {
-  fill(30, 30, 60, 200);
+  textSize(18);
+
+  // Breedte berekenen op basis van tekst
+  let padding = 60;
+  let boxWidth = textWidth("[" + l + "] " + t) + padding;
+
+  // Minimum en maximum breedte
+  boxWidth = constrain(boxWidth, 300, 700);
+
+  let boxHeight = 60;
+  let x = width / 2 - boxWidth / 2;
+
+  // Vakje
+  fill(30, 30, 60, 220);
   stroke(0, 255, 255);
-  rect(width / 2 - 200, y, 400, 50, 10);
+  strokeWeight(2);
+
+  rect(x, y, boxWidth, boxHeight, 15);
+
+  // Tekst
   fill(255);
   noStroke();
-  text("[" + l + "] " + t, width / 2, y + 33);
+  textAlign(CENTER, CENTER);
+
+  text("[" + l.toUpperCase() + "] " + t, width / 2, y + boxHeight / 2);
 }
 
 function drawUI() {
@@ -330,9 +410,11 @@ function keyPressed() {
     if (currentQuestion.type === "MC") {
       let pk = key.toLowerCase();
       if (currentQuestion.options[pk]) checkAnswer(pk);
-    } else if (keyCode === ENTER) {
-      checkAnswer(inputField.value().toLowerCase().trim());
     }
+  }
+
+  if (gameState === "FEEDBACK" && keyCode === ENTER) {
+    gameState = "PLAY";
   }
 }
 
@@ -400,4 +482,10 @@ function displayLoadingScreen() {
   textSize(30);
 
   text("GAME WORDT GELADEN...", width / 2, height / 2);
+}
+
+function submitOpenAnswer() {
+  if (currentQuestion.type === "OPEN" || currentQuestion.type === "MATCH") {
+    checkAnswer(inputField.value());
+  }
 }
